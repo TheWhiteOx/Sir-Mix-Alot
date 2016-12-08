@@ -57,7 +57,7 @@ should have a method named `destroy` that removes the stored data object from th
 
 should have a method named `getNextId` that returns the next successive number in the datastore for this model, the highest `id` plus one. `getNextId` should also return the highest `id` of a single collection in the data store plus one.
 
-should have a method named `find` that accepts a single argument `id` that returns the stored data object in the datastore for this model, having the same `id` value passed in from the `find` argument
+should have a method named `find` that accepts a single argument `id` that returns the stored data object in the datastore for this model, having the same `id` value passed in from the `find` argument.  This method should return null if the id is invalid.
 
 should have a method named `extend` that accepts a single argument `klass`, and extends each static and prototype method of `Model` onto `klass`
 
