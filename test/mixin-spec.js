@@ -44,42 +44,6 @@ describe('Model', function() {
 
   });
 
-  describe('inheritable static methods', function() {
-
-    afterEach(function () {
-      db.Model = [];
-    });
-
-    it('should have a method named `getNextId` that returns the next successive number in the datastore for this model, the highest `id` plus one.', function() {
-      Model.getNextId().should.equal(1);
-    });
-
-    it('should have a method named `find` that accepts a single argument `id` that returns the stored data object in the datastore for this model, having the same `id` value passed in from the `find` argument', function() {
-      var m1 = new Model();
-      m1.a = 'A1';
-      m1.save();
-
-      var m2 = new Model();
-      m2.a = 'A2';
-      m2.save();
-
-      Model.find(1).should.have.property('a').to.equal('A1');
-      Model.find(2).should.have.property('a').to.equal('A2');
-    });
-
-    it('should have a method named `extend` that accepts a single argument `klass`, and extends each static and prototype method of `Model` onto `klass`', function() {
-      function Obj(){
-      }
-      Model.extend(Obj);
-      var obj = new Obj();
-      obj.should.have.property('save');
-      obj.should.have.property('destroy');
-      Obj.should.have.property('find');
-      Obj.should.have.property('getNextId');
-    });
-
-  });
-
   describe('prototype', function() {
 
     afterEach(function () {
@@ -115,6 +79,44 @@ describe('Model', function() {
     });
 
   });
+
+  describe('inheritable static methods', function() {
+
+    afterEach(function () {
+      db.Model = [];
+    });
+
+    it('should have a method named `getNextId` that returns the next successive number in the datastore for this model, the highest `id` plus one.', function() {
+      Model.getNextId().should.equal(1);
+    });
+
+    it('should have a method named `find` that accepts a single argument `id` that returns the stored data object in the datastore for this model, having the same `id` value passed in from the `find` argument', function() {
+      var m1 = new Model();
+      m1.a = 'A1';
+      m1.save();
+
+      var m2 = new Model();
+      m2.a = 'A2';
+      m2.save();
+
+      Model.find(1).should.have.property('a').to.equal('A1');
+      Model.find(2).should.have.property('a').to.equal('A2');
+      chai.assert.isNull( Model.find(3) );
+    });
+
+    it('should have a method named `extend` that accepts a single argument `klass`, and extends each static and prototype method of `Model` onto `klass`', function() {
+      function Obj(){
+      }
+      Model.extend(Obj);
+      var obj = new Obj();
+      obj.should.have.property('save');
+      obj.should.have.property('destroy');
+      Obj.should.have.property('find');
+      Obj.should.have.property('getNextId');
+    });
+
+  });
+
 
 });
 
